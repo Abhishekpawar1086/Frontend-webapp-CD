@@ -1,24 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "frontend-app.fullname" . }}
-  labels:
-    {{- include "frontend-app.labels" . | nindent 4 }}
+  name: react-app
+  namespace: react-gke
 spec:
-  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "frontend-app.selectorLabels" . | nindent 6 }}
+      app: react-gke
+  replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
-        {{- include "frontend-app.selectorLabels" . | nindent 8 }}
+        app: react-gke
     spec:
       containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+        - name: react-gke-backend-container
+          image: "{{ .Values.image.repository }}:{{ .Values.image_tag }}"
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "1"
+            requests:
+              cpu: "0.2"
           ports:
             - containerPort: 80
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+              protocol: TCP
