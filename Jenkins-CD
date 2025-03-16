@@ -1,1 +1,24 @@
+pipeline {
+  agent any
+
+  environment {
+    GCP_PROJECT_ID = 'your-project-id'
+    GAR_REPO = 'us-central1-docker.pkg.dev/your-project-id/your-repo'
+    IMAGE_NAME = 'your-frontend-app'
+    IMAGE_TAG = 'latest'
+    KUBE_NAMESPACE = 'default'
+    HELM_CHART_PATH = 'path/to/your/helm/chart'
+  }
+
+  stages {
+    stage('Authenticate with GCP') {
+      steps {
+        withCredentials([file(credentialsId: 'gcp-service-account-key', variable: 'GCP_KEY')]) {
+          sh """
+            gcloud auth activate-service-account --key-file=${GCP_KEY}
+            gcloud auth configure-docker ${GAR_REPO}
+          """
+        }
+      }
+    }
 
