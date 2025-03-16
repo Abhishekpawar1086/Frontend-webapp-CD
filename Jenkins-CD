@@ -54,7 +54,7 @@ stage('Deploy to GKE using Helm') {
               --namespace ${KUBE_NAMESPACE} \
               --values ${VALUES_FILE}
           """ */
-          sh "helm upgrade frontend-webapp ./ --set image_tag=${IMAGE_VERSION}"
+          sh "helm upgrade --install frontend-webapp ./ --set image_tag=${IMAGE_VERSION}"
                       
 
                 }
