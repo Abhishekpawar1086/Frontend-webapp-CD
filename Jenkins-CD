@@ -11,7 +11,15 @@ pipeline {
   }
 
   stages {
-    stage('Authenticate with GCP') {
+ stage('Clone Repository') {
+      steps {
+        script {
+          echo "Cloning repository from ${GIT_REPO_URL} (branch: ${GIT_BRANCH})..."
+          git branch: "${GIT_BRANCH}", url: "${GIT_REPO_URL}"
+        }
+      }
+    }
+ stage('Authenticate with GCP') {
       steps {
        withCredentials([file(credentialsId: 'gcp-artifact-registry-key', variable: 'gcp-key')]) {
           sh """
