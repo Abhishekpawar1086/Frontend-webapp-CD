@@ -11,7 +11,13 @@ pipeline {
   }
 
   stages {
- stage('Clone Repository') {
+stages {
+       stage('Clean Workspace') {
+            steps {
+                cleanWs() // Cleans the workspace
+            }
+        }
+stage('Clone Repository') {
       steps {
         script {
           echo "Cloning repository from ${GIT_REPO_URL} (branch: ${GIT_BRANCH})..."
