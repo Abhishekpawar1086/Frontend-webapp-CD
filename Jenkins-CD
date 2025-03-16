@@ -1,7 +1,6 @@
 pipeline {
   agent any
-
-  environment {
+    environment {
     GCP_PROJECT_ID = 'final-project-453412'
     GAR_REPO = 'us-central1-docker.pkg.dev/final-project-453412/docker-images'
     IMAGE_NAME = 'frontend-app'
@@ -10,64 +9,58 @@ pipeline {
     GKE_ZONE = 'us-central1'
     VALUES_FILE = 'values.yaml'
     IMAGE_TAG = "${GAR_REGISTRY}/${PROJECT_ID}/${FOLDER_NAME}/${IMAGE_NAME}:latest"
-    //IMAGE_VERSION = "latest"
-    // HELM_CHART_PATH = 'path/to/your/helm/chart'
-  }
-stages {
-  stage('Clean Workspace') {
-      steps {
-                cleanWs() // Cleans the workspace
-            }
-        }
-  stage('Clone Repository') {
-      steps {
-          echo "Cloning repository..."
-          git branch: 'main', credentialsId: 'Jenkins-token', url: 'https://github.com/Abhishekpawar1086/Frontend-webapp-CD.git'
-        
-      }
-    }
-  stage('Authenticate with GKE') {
-      steps {
-        withCredentials([file(credentialsId: 'gcp-artifact-registry-key', variable: 'GCP_KEY')]) {
-          script {
-            echo "Authenticating with GKE cluster..."
-            sh """
-              gcloud auth activate-service-account --key-file=${GCP_KEY}
-              gcloud container clusters get-credentials ${GKE_CLUSTER} --zone ${GKE_ZONE} --project ${GCP_PROJECT_ID}
-            """
-        }
-      }
-    }
-  }
-stage('Deploy to GKE using Helm') {
-            steps {
-                script {
-                    // Deploy the application using Helm  frontend-app name of your chart
-      /*            
-                   sh "helm install frontend-webapp ./ --set image_tag=${image_tag}"
-                     //  sh "helm install frontend-app ./ --set image_tag=${image_tag}"
-                    echo "Deploying to Kubernetes using Helm..."
-         sh """
-            helm upgrade --install ${IMAGE_NAME} ./ \
-              --set image.repository=${GAR_REPO}/${IMAGE_NAME} \
-              --set image.tag=${IMAGE_TAG} \
-              --namespace ${KUBE_NAMESPACE} \
-              --values ${VALUES_FILE}
-          """ */
-          sh "helm upgrade --install frontend-webapp ./ --set image_tag=${IMAGE_VERSION}"
-                      
-
-                }
-            }
-        }
- stage('Verify Deployment') {
-            steps {
-                script {
-                    // Verify the deployment
-                    sh "kubectl get pods -n ${KUBE_NAMESPACE}"
-                    sh "kubectl get svc -n ${KUBE_NAMESPACE}"
-                }
-            }
-        }
-     }
+    // HELM_CHART_PATH = 'path/to/your/helm/chart'   This can be used When You want to Install helm chart from spacific location
 }
+    stages {
+// Cleans the workspace every time you hit a build 
+          stage('Clean Workspace') {
+                steps {
+                      cleanWs() 
+                     }
+                   }
+//clone your repo from git to your jenkins workspace you need to create private token for git and use that token inside jenkins crediantial  
+//kind will be username and pass and spacefi any id (ex git token) for it and password will be your token
+//you can use pipeline syntex for generating syntax for you 
+          stage('Clone Repository') {
+                 steps {
+                       echo "Cloning repository..."
+                       git branch: 'main', credentialsId: 'Jenkins-token', url: 'https://github.com/Abhishekpawar1086/Frontend-webapp-CD.git'
+                     }
+                   }
+//this stage aloows to to authenticate you genkins with GCP in this you need to download the json file of service account which is having all required access. you need to add that file in jenkins crediantial 
+//kind will be secret file and provide Any id (ex service-key-file) and add that json file over here
+//you can use pipeline syntax to generate synatacs for with crediantial 
+//in this stage you need to provide information related to your keyfile through which you can access your gcp variable can be any thing (ex GCP_KEY)
+//now below you need to provide the cluster name zone and prject id in which you want to deploy your MS
+          stage('Authenticate with GKE') {
+                 steps {
+                      withCredentials([file(credentialsId: 'gcp-artifact-registry-key', variable: 'GCP_KEY')]) {
+                      script {
+                        echo "Authenticating with GKE cluster..."
+                        sh """
+                        gcloud auth activate-service-account --key-file=${GCP_KEY}
+                        gcloud container clusters get-credentials ${GKE_CLUSTER} --zone ${GKE_ZONE} --project ${GCP_PROJECT_ID}
+                           """
+                    }
+                  }
+                }
+              }
+//this stage alows you to deploy you image from artifactory to GKS using helm
+          stage('Deploy to GKE using Helm') {
+                steps {
+                    script {
+                       sh "helm upgrade --install frontend-webapp ./ --set image_tag=${IMAGE_VERSION}"
+                    }
+                  }
+                }
+     stage('Verify Deployment') {
+                steps {
+                    script {
+                        // Verify the deployment
+                        sh "kubectl get pods -n ${KUBE_NAMESPACE}"
+                        sh "kubectl get svc -n ${KUBE_NAMESPACE}"
+                    }
+                }
+            }
+         }
+    }
