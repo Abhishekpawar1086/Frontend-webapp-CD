@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    GCP-PROJECT_ID = 'final-project-453412'
+    GCP-PROJECT-ID = 'final-project-453412'
     GAR-REPO = 'us-central1-docker.pkg.dev/final-project-453412/docker-images'
     IMAGE-NAME = 'frontend-webapp'
     IMAGE-TAG = 'latest'
