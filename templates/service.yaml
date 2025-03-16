@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "frontend-app.fullname" . }}
-  labels:
-    {{- include "frontend-app.labels" . | nindent 4 }}
+  name: react-gke-service
+  namespace: react-gke
 spec:
-  type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
+    - port: 80
+      protocol: TCP
       targetPort: 80
   selector:
-    {{- include "frontend-app.selectorLabels" . | nindent 4 }}
+    app: react-gke
+  type: LoadBalancer
