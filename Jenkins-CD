@@ -7,6 +7,8 @@ pipeline {
     IMAGE_NAME = 'frontend-webapp'
     IMAGE_TAG = 'latest'
     KUBE_NAMESPACE = 'frontend-app'
+    GKE_CLUSTER = 'cluster-1-front-end-web-app'
+    GKE_ZONE = 'us-central1-a'
     // HELM_CHART_PATH = 'path/to/your/helm/chart'
   }
 stages {
@@ -22,13 +24,17 @@ stage('Clone Repository') {
         
       }
     }
- stage('Authenticate with GCP') {
+  stage('Authenticate with GKE') {
       steps {
-       withCredentials([file(credentialsId: 'gcp-artifact-registry-key', variable: 'gcp-key')]) {
-          sh """
-            gcloud auth activate-service-account --key-file=${gcp-key}
-            gcloud auth configure-docker ${GAR_REPO}
-          """
+        withCredentials([file(credentialsId: 'gcp-service-account-key', variable: 'GCP_KEY')]) {
+          script {
+            echo "Authenticating with GKE cluster..."
+            sh """
+              gcloud auth activate-service-account --key-file=${GCP_KEY}
+              gcloud container clusters get-credentials ${GKE_CLUSTER} \
+                --zone ${GKE_ZONE} \
+                --project ${GCP_PROJECT_ID}
+            """
         }
       }
     }
