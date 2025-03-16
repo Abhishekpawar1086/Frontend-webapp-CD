@@ -15,7 +15,7 @@ pipeline {
       steps {
         script {
           echo "Cloning repository from ${GIT_REPO_URL} (branch: ${GIT_BRANCH})..."
-          git branch: "${GIT_BRANCH}", url: "${GIT_REPO_URL}"
+          git branch: 'main', credentialsId: 'Jenkins-token', url: 'https://github.com/Abhishekpawar1086/Frontend-webapp-CD.git'
         }
       }
     }
