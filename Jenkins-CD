@@ -42,7 +42,7 @@ stage('Deploy to GKE using Helm') {
                 script {
                     // Deploy the application using Helm  frontend-app name of your chart
                     //helm install frontend-app ./ --set image_tag=${image_tag}"
-                      sh "helm install frontend-app ./ --set image.tag=latest"
+                      sh "helm install frontend-app ./ --set image_tag=${image_tag}"
                       
 
                 }
