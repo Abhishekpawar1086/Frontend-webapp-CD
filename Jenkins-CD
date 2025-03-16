@@ -8,7 +8,7 @@ pipeline {
     IMAGE_TAG = 'latest'
     KUBE_NAMESPACE = 'frontend-app'
     GKE_CLUSTER = 'cluster-1-front-end-web-app'
-    GKE_ZONE = 'us-central1-a'
+    GKE_ZONE = 'us-central1'
     // HELM_CHART_PATH = 'path/to/your/helm/chart'
   }
 stages {
