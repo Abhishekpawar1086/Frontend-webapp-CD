@@ -17,10 +17,10 @@ stages {
         }
 stage('Clone Repository') {
       steps {
-        script {
+        
           echo "Cloning repository from ${GIT_REPO_URL} (branch: ${GIT_BRANCH})..."
           git branch: 'main', credentialsId: 'Jenkins-token', url: 'https://github.com/Abhishekpawar1086/Frontend-webapp-CD.git'
-        }
+        
       }
     }
  stage('Authenticate with GCP') {
