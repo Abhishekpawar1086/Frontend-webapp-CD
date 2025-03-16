@@ -9,6 +9,7 @@ pipeline {
     GKE_CLUSTER = 'cluster-1-front-end-web-app'
     GKE_ZONE = 'us-central1'
     VALUES_FILE = 'values.yaml'
+    IMAGE_TAG = "${GAR_REGISTRY}/${PROJECT_ID}/${FOLDER_NAME}/${IMAGE_NAME}/${BUILD_NUMBER}"
     // HELM_CHART_PATH = 'path/to/your/helm/chart'
   }
 stages {
