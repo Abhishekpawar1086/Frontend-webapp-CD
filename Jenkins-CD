@@ -8,6 +8,7 @@ pipeline {
     KUBE_NAMESPACE = 'frontend-app'
     GKE_CLUSTER = 'cluster-1-front-end-web-app'
     GKE_ZONE = 'us-central1'
+    VALUES_FILE = 'values.yaml'
     // HELM_CHART_PATH = 'path/to/your/helm/chart'
   }
 stages {
@@ -40,8 +41,16 @@ stage('Deploy to GKE using Helm') {
             steps {
                 script {
                     // Deploy the application using Helm  frontend-app name of your chart
-                   sh "helm install frontend-webapp ./ --set image_tag=${image_tag}"
+                //   sh "helm install frontend-webapp ./ --set image_tag=${image_tag}"
                      //  sh "helm install frontend-app ./ --set image_tag=${image_tag}"
+                    echo "Deploying to Kubernetes using Helm..."
+          sh """
+            helm upgrade --install ${IMAGE_NAME} ./ \
+              --set image.repository=${GAR_REPO}/${IMAGE_NAME} \
+              --set image.tag=${IMAGE_TAG} \
+              --namespace ${KUBE_NAMESPACE} \
+              --values ${VALUES_FILE}
+          """
                       
 
                 }
