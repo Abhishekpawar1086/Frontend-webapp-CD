@@ -6,8 +6,8 @@ pipeline {
     GAR_REPO = 'us-central1-docker.pkg.dev/final-project-453412/docker-images'
     IMAGE_NAME = 'frontend-webapp'
     IMAGE_TAG = 'latest'
-    KUBE_NAMESPACE = 'default'
-    HELM_CHART_PATH = 'path/to/your/helm/chart'
+    KUBE_NAMESPACE = 'frontend-app'
+    // HELM_CHART_PATH = 'path/to/your/helm/chart'
   }
 
   stages {
