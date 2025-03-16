@@ -1,6 +1,6 @@
 kind: Namespace
 apiVersion: v1
 metadata:
-  name: react-gke
+  name: frontend-app
   labels:
-    name: react-gke
+    name: frontend-app
