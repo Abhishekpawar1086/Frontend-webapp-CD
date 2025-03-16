@@ -57,5 +57,14 @@ stage('Deploy to GKE using Helm') {
                 }
             }
         }
+ stage('Verify Deployment') {
+            steps {
+                script {
+                    // Verify the deployment
+                    sh "kubectl get pods -n ${KUBE_NAMESPACE}"
+                    sh "kubectl get svc -n ${KUBE_NAMESPACE}"
+                }
+            }
+        }
      }
 }
