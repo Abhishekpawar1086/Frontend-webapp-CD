@@ -3,12 +3,9 @@ pipeline {
     environment {
     GCP_PROJECT_ID = 'final-project-453412'
     GAR_REPO = 'us-central1-docker.pkg.dev/final-project-453412/docker-images'
-    IMAGE_NAME = 'frontend-app'
     KUBE_NAMESPACE = 'frontend-webapp'
     GKE_CLUSTER = 'cluster-1-front-end-web-app'
     GKE_ZONE = 'us-central1'
-    VALUES_FILE = 'values.yaml'
-    IMAGE_TAG = "${GAR_REGISTRY}/${PROJECT_ID}/${FOLDER_NAME}/${IMAGE_NAME}:latest"
     // HELM_CHART_PATH = 'path/to/your/helm/chart'   This can be used When You want to Install helm chart from spacific location
 }
     stages {
@@ -42,7 +39,7 @@ pipeline {
                         gcloud container clusters get-credentials ${GKE_CLUSTER} --zone ${GKE_ZONE} --project ${GCP_PROJECT_ID}
                            """
                     }
-                  } 802a348f98ae 43
+                  } 
                 }
               }
 //this stage alows you to deploy your image from artifactory to GKS using helm in values.yaml file we will define the GAR location for our image and we will pass those values in deployment template as a placeholder
