@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: react-app
-  namespace: react-gke
+  name: frontend-app
+  namespace: frontend-app
 spec:
   selector:
     matchLabels:
-      app: react-gke
+      app: frontend-app
   replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
-        app: react-gke
+        app: frontend-app
     spec:
       containers:
-        - name: react-gke-backend-container
+        - name: frontend-app-backend-container
           image: "{{ .Values.image.repository }}:{{ .Values.image_tag }}"
           imagePullPolicy: Always
           resources:
