@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-app
+  name: frontend-webapp
   namespace: frontend-app
 spec:
   selector:
     matchLabels:
-      app: frontend-app
+      app: frontend-webapp
   replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
-        app: frontend-app
+        app: frontend-webapp
     spec:
       containers:
-        - name: frontend-app-backend-container
+        - name: frontend-webapp-backend-container
           image: "{{ .Values.image.repository }}:{{ .Values.image_tag }}"
           imagePullPolicy: Always
           resources:
