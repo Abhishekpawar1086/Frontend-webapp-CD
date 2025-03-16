@@ -42,16 +42,18 @@ stage('Deploy to GKE using Helm') {
             steps {
                 script {
                     // Deploy the application using Helm  frontend-app name of your chart
-                  sh "helm install frontend-webapp ./ --set image_tag=${image_tag}"
+      /*            
+                   sh "helm install frontend-webapp ./ --set image_tag=${image_tag}"
                      //  sh "helm install frontend-app ./ --set image_tag=${image_tag}"
                     echo "Deploying to Kubernetes using Helm..."
-      /*    sh """
+         sh """
             helm upgrade --install ${IMAGE_NAME} ./ \
               --set image.repository=${GAR_REPO}/${IMAGE_NAME} \
               --set image.tag=${IMAGE_TAG} \
               --namespace ${KUBE_NAMESPACE} \
               --values ${VALUES_FILE}
           """ */
+          sh "helm upgrade frontend-webapp ./ --set image_tag=${image_tag}"
                       
 
                 }
