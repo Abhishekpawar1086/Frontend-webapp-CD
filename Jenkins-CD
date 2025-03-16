@@ -42,10 +42,15 @@ pipeline {
                         gcloud container clusters get-credentials ${GKE_CLUSTER} --zone ${GKE_ZONE} --project ${GCP_PROJECT_ID}
                            """
                     }
-                  }
+                  } 802a348f98ae 43
                 }
               }
-//this stage alows you to deploy you image from artifactory to GKS using helm in values.yaml file we will define the GAR location for our image
+//this stage alows you to deploy your image from artifactory to GKS using helm in values.yaml file we will define the GAR location for our image and we will pass those values in deployment template as a placeholder
+//now (frontend-webapp) is release name which you can see by kubectl get secret by ssh ing that k8s cluster  ./ is represting from this directory deploy MS to cluster image_tags is use to define version of image (ex build 2,3,4)
+//Now IMAGE_VERSION Is parameterize in Jenkins UI which you will be not able to see in this jenkins file environment veriable. its same like defining variable in this file. but wee will define image version in jenkins for easy roolbacks 
+//now inside pipeline>configure>this projectis is paremetrize>string paremiter now IMAGE_VERSION you need to define here as a verable which holds a value of image tag (ex image name <build no>) now wee will define this build no over here to swith to any specific version of image 
+//image_tag is just a number that is generate from build tag that we defined in CI pipeline now we just need to define that number as a image_tag Using IMAGE_VERSION as a veriable to install any image from ther (eg 802a348f98ae 43 802a348f98ae 42) 802a348f98ae is image name and 43 is tag
+//you can use this parametrize for deploying verious MS In cluster using Single deployment file you jsut need to parametrize every thing in you CD pipeline and by selecting the option you can deploy 
           stage('Deploy to GKE using Helm') {
                 steps {
                     script {
@@ -53,14 +58,15 @@ pipeline {
                     }
                   }
                 }
+//this stage will give you out put in you jenkins logs about your deployment loke pods detail and service detail
      stage('Verify Deployment') {
                 steps {
                     script {
                         // Verify the deployment
                         sh "kubectl get pods -n ${KUBE_NAMESPACE}"
                         sh "kubectl get svc -n ${KUBE_NAMESPACE}"
-                    }
+                  }
                 }
+              }
             }
-         }
-    }
+          }
