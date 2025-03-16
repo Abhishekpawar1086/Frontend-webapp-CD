@@ -10,7 +10,7 @@ pipeline {
     GKE_ZONE = 'us-central1'
     VALUES_FILE = 'values.yaml'
     IMAGE_TAG = "${GAR_REGISTRY}/${PROJECT_ID}/${FOLDER_NAME}/${IMAGE_NAME}:latest"
-    IMAGE_VERSION = "latest"
+    //IMAGE_VERSION = "latest"
     // HELM_CHART_PATH = 'path/to/your/helm/chart'
   }
 stages {
