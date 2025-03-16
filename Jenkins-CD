@@ -9,8 +9,6 @@ pipeline {
     KUBE_NAMESPACE = 'frontend-app'
     // HELM_CHART_PATH = 'path/to/your/helm/chart'
   }
-
-  stages {
 stages {
        stage('Clean Workspace') {
             steps {
@@ -37,4 +35,4 @@ stage('Clone Repository') {
     }
   }
  }
-}
+
