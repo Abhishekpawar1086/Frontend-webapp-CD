@@ -9,7 +9,7 @@ pipeline {
     GKE_CLUSTER = 'cluster-1-front-end-web-app'
     GKE_ZONE = 'us-central1'
     VALUES_FILE = 'values.yaml'
-    IMAGE_TAG = "${GAR_REGISTRY}/${PROJECT_ID}/${FOLDER_NAME}/${IMAGE_NAME}/${BUILD_NUMBER}"
+    IMAGE_TAG = "${GAR_REGISTRY}/${PROJECT_ID}/${FOLDER_NAME}/${IMAGE_NAME}:latest"
     // HELM_CHART_PATH = 'path/to/your/helm/chart'
   }
 stages {
@@ -53,7 +53,7 @@ stage('Deploy to GKE using Helm') {
               --namespace ${KUBE_NAMESPACE} \
               --values ${VALUES_FILE}
           """ */
-          sh "helm upgrade frontend-webapp ./ --set image_tag=${image_tag}"
+          sh "helm upgrade frontend-webapp ./ --set image_tag=${IMAGE_TAG}"
                       
 
                 }
