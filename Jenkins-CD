@@ -12,12 +12,12 @@ pipeline {
     // HELM_CHART_PATH = 'path/to/your/helm/chart'
   }
 stages {
-       stage('Clean Workspace') {
-            steps {
+  stage('Clean Workspace') {
+      steps {
                 cleanWs() // Cleans the workspace
             }
         }
-stage('Clone Repository') {
+  stage('Clone Repository') {
       steps {
           echo "Cloning repository..."
           git branch: 'main', credentialsId: 'Jenkins-token', url: 'https://github.com/Abhishekpawar1086/Frontend-webapp-CD.git'
@@ -31,7 +31,7 @@ stage('Clone Repository') {
             echo "Authenticating with GKE cluster..."
             sh """
               gcloud auth activate-service-account --key-file=${GCP_KEY}
-              gcloud container clusters get-credentials ${GKE_CLUSTER} \ --zone ${GKE_ZONE} \ --project ${GCP_PROJECT_ID}
+              gcloud container clusters get-credentials ${GKE_CLUSTER} --zone ${GKE_ZONE} --project ${GCP_PROJECT_ID}
             """
         }
       }
