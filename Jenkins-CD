@@ -2,11 +2,11 @@ pipeline {
   agent any
 
   environment {
-    GCP-PROJECT-ID = 'final-project-453412'
-    GAR-REPO = 'us-central1-docker.pkg.dev/final-project-453412/docker-images'
-    IMAGE-NAME = 'frontend-webapp'
-    IMAGE-TAG = 'latest'
-    KUBE-NAMESPACE = 'frontend-app'
+    GCP_PROJECT_ID = 'final-project-453412'
+    GAR_REPO = 'us-central1-docker.pkg.dev/final-project-453412/docker-images'
+    IMAGE_NAME = 'frontend-webapp'
+    IMAGE_TAG = 'latest'
+    KUBE_NAMESPACE = 'frontend-app'
     // HELM_CHART_PATH = 'path/to/your/helm/chart'
   }
 stages {
@@ -27,7 +27,7 @@ stage('Clone Repository') {
        withCredentials([file(credentialsId: 'gcp-artifact-registry-key', variable: 'gcp-key')]) {
           sh """
             gcloud auth activate-service-account --key-file=${gcp-key}
-            gcloud auth configure-docker ${GAR-REPO}
+            gcloud auth configure-docker ${GAR_REPO}
           """
         }
       }
