@@ -45,7 +45,7 @@ pipeline {
                   }
                 }
               }
-//this stage alows you to deploy you image from artifactory to GKS using helm
+//this stage alows you to deploy you image from artifactory to GKS using helm in values.yaml file we will define the GAR location for our image
           stage('Deploy to GKE using Helm') {
                 steps {
                     script {
