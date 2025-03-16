@@ -23,7 +23,7 @@ pipeline {
                        git branch: 'main', credentialsId: 'Jenkins-token', url: 'https://github.com/Abhishekpawar1086/Frontend-webapp-CD.git'
                      }
                    }
-//this stage aloows to to authenticate you genkins with GCP in this you need to download the json file of service account which is having all required access. you need to add that file in jenkins crediantial 
+//this stage aloows to to authenticate your genkins with GCP in this you need to download the json file of service account which is having all required access. you need to add that file in jenkins crediantial 
 //kind will be secret file and provide Any id (ex service-key-file) and add that json file over here
 //you can use pipeline syntax to generate synatacs for with crediantial 
 //in this stage you need to provide information related to your keyfile through which you can access your gcp variable can be any thing (ex GCP_KEY)
