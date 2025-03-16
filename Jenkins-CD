@@ -17,8 +17,7 @@ stages {
         }
 stage('Clone Repository') {
       steps {
-        
-          echo "Cloning repository from ${GIT_REPO_URL} (branch: ${GIT_BRANCH})..."
+          echo "Cloning repository..."
           git branch: 'main', credentialsId: 'Jenkins-token', url: 'https://github.com/Abhishekpawar1086/Frontend-webapp-CD.git'
         
       }
