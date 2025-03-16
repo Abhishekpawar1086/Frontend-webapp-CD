@@ -2,9 +2,9 @@ pipeline {
   agent any
 
   environment {
-    GCP_PROJECT_ID = 'your-project-id'
-    GAR_REPO = 'us-central1-docker.pkg.dev/your-project-id/your-repo'
-    IMAGE_NAME = 'your-frontend-app'
+    GCP_PROJECT_ID = 'final-project-453412'
+    GAR_REPO = 'us-central1-docker.pkg.dev/final-project-453412/docker-images'
+    IMAGE_NAME = 'frontend-webapp'
     IMAGE_TAG = 'latest'
     KUBE_NAMESPACE = 'default'
     HELM_CHART_PATH = 'path/to/your/helm/chart'
