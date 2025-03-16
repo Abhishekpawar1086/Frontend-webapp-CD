@@ -9,5 +9,5 @@ spec:
       protocol: TCP
       targetPort: 80
   selector:
-    app: react-gke
+    app: frontend-app
   type: LoadBalancer
