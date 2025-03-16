@@ -4,8 +4,8 @@ pipeline {
   environment {
     GCP_PROJECT_ID = 'final-project-453412'
     GAR_REPO = 'us-central1-docker.pkg.dev/final-project-453412/docker-images'
-    IMAGE_NAME = 'frontend-app'
-    KUBE_NAMESPACE = 'frontend-app'
+    IMAGE_NAME = 'frontend-webapp'
+    KUBE_NAMESPACE = 'frontend-webapp'
     GKE_CLUSTER = 'cluster-1-front-end-web-app'
     GKE_ZONE = 'us-central1'
     VALUES_FILE = 'values.yaml'
