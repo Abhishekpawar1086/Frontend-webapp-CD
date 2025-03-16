@@ -1,5 +1,5 @@
 image:
-  repository: us-central1-docker.pkg.dev/your-project-id/your-repo/your-frontend-app
+  repository: us-central1-docker.pkg.dev/final-project-453412/docker-images
   tag: latest
   pullPolicy: IfNotPresent
 
